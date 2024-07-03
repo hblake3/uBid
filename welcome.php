@@ -1,7 +1,7 @@
 <?php
 // Connect to database and profile page
 require_once 'db_connection.php';
-require_once 'profile.php';
+
 
 // Check if logged in
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !isset($_SESSION["ProfileID"])) {
@@ -13,10 +13,28 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !isset($_
     $profileId = $_SESSION['ProfileID'];
 }
 
-// Create new user object
-$user = new User(null, null, null, null, $conn);
-// Store users first name
-$firstName = $user->getFirstName($profileId, $conn);
+// Initialize variables
+$firstName = "";
+
+
+// Query to retrieve profile details
+$query = "SELECT firstName FROM user_profile WHERE profileID = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $profileId);
+
+// Execute query
+if ($stmt->execute()) {
+    // Bind result variables
+    $stmt->bind_result($firstName);
+    // Fetch values
+    $stmt->fetch();
+    // Close statement
+    $stmt->close();
+} else {
+    // Handle query execution error (example: log error, redirect, etc.)
+    echo "Error fetching profile details.";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

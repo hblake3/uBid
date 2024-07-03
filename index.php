@@ -1,7 +1,7 @@
 <?php
 // Connect to database
 require_once 'db_connection.php';
-require_once 'profile.php';
+
 
 // Check if user is logged in
 if (isset($_SESSION["loggedin"])) {
@@ -44,21 +44,22 @@ if (isset($_SESSION["loggedin"])) {
   <main>
 
     <div class="px-4 py-5 my-5 text-center">
-      <img class="d-block mx-auto mb-4" src="images/uBid_Logo2.png" alt="" width ="700px" height="300px"/>
+      <img class="d-block mx-auto mb-4" src="images/uBid_Logo2.png" alt="" width="700px" height="300px" />
       <div class="col-lg-6 mx-auto">
         <p class="display-5 pb-5"> Bid, Win, Repeat: Your Deals Await!</p>
         <div class="d-grid pb-5 gap-2 d-sm-flex justify-content-sm-center">
-            <!-- Link to create a listing -->
-            <a href="createListing.php" class="btn btn-primary btn-lg btn-block px-5" style="font-size: 24px;">Create A Listing</a>
+          <!-- Link to create a listing -->
+          <a href="createListing.php" class="btn btn-primary btn-lg btn-block px-5" style="font-size: 24px;">Create A
+            Listing</a>
         </div>
         <div class="d-grid pb-2 pt-2 gap-2 d-sm-flex justify-content-sm-center">
-            <!-- Links to profile creation and login -->
-            <a href="createprofile.php" class="btn btn-primary btn-lg px-4">Create Account</a>
+          <!-- Links to profile creation and login -->
+          <a href="createprofile.php" class="btn btn-primary btn-lg px-4">Create Account</a>
         </div>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="login.php" class="btn btn-secondary btn-lg px-4">Log In</a>
+          <a href="login.php" class="btn btn-secondary btn-lg px-4">Log In</a>
         </div>
-        
+
       </div>
     </div>
   </main>
