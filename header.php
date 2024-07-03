@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once 'db_connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -67,66 +67,63 @@ session_start();
     <nav class="category-nav">
         <ul class="category-ul">
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Antiques</a>
+                <a href="category.php?categoryID=5" class="dropbtn">Antiques</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Furniture</a>
-                    <a href="category.php">Art</a>
-                    <a href="category.php">Decorative Arts</a>
+                    <a href="category.php?categoryID=1&type=furniture">Furniture</a>
+                    <a href="category.php?categoryID=1&type=art">Art</a>
+                    <a href="category.php?categoryID=1&type=decorative_arts">Decorative Arts</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Automobiles</a>
+                <a href="category.php?categoryID=1" class="dropbtn">Automobiles</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Classic Cars</a>
-                    <a href="category.php">Motorcycles</a>
-                    <a href="category.php">Parts & Accessories</a>
+                    <a href="category.php?categoryID=2&type=classic_cars">Classic Cars</a>
+                    <a href="category.php?categoryID=2&type=motorcycles">Motorcycles</a>
+                    <a href="category.php?categoryID=2&type=parts_accessories">Parts & Accessories</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Jewelry</a>
+                <a href="category.php?categoryID=9" class="dropbtn">Jewelry</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Necklaces</a>
-                    <a href="category.php">Rings</a>
-                    <a href="category.php">Earrings</a>
+                    <a href="category.php?categoryID=3&type=necklaces">Necklaces</a>
+                    <a href="category.php?categoryID=3&type=rings">Rings</a>
+                    <a href="category.php?categoryID=3&type=earrings">Earrings</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Watches</a>
+                <a href="category.php?categoryID=13" class="dropbtn">Watches</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Luxury Watches</a>
-                    <a href="category.php">Vintage Watches</a>
+                    <a href="category.php?categoryID=4&type=luxury_watches">Luxury Watches</a>
+                    <a href="category.php?categoryID=4&type=vintage_watches">Vintage Watches</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Home & Garden</a>
+                <a href="category.php?categoryID=16" class="dropbtn">Home & Garden</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Furniture</a>
-                    <a href="category.php">Garden Tools</a>
+                    <a href="category.php?categoryID=5&type=furniture">Furniture</a>
+                    <a href="category.php?categoryID=5&type=garden_tools">Garden Tools</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Electronics</a>
+                <a href="category.php?categoryID=19" class="dropbtn">Electronics</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Computers</a>
+                    <a href="category.php?categoryID=6&type=computers">Computers</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Books</a>
+                <a href="category.php?categoryID=21" class="dropbtn">Books</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Adult</a>
-                    <a href="category.php">Children</a>
+                    <a href="category.php?categoryID=7&type=adult">Adult</a>
+                    <a href="category.php?categoryID=7&type=children">Children</a>
                 </div>
             </li>
             <li class="dropdown">
-                <a href="category.php" class="dropbtn">Clothing</a>
+                <a href="category.php?categoryID=24" class="dropbtn">Clothing</a>
                 <div class="dropdown-content">
-                    <a href="category.php">Jackets</a>
-                    <a href="category.php">Ties</a>
-                    <a href="category.php">Socks</a>
+                    <a href="category.php?categoryID=8&type=jackets">Jackets</a>
+                    <a href="category.php?categoryID=8&type=ties">Ties</a>
+                    <a href="category.php?categoryID=8&type=socks">Socks</a>
                 </div>
             </li>
         </ul>
     </nav>
-</body>
-
-</html>
