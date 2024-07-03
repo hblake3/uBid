@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  php:
+    image: icpms54/bid:v1.0
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ''
+      MYSQL_DATABASE: ubid
+
+  mysql:
+    image: icpms54/mysql:v1.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./bid.sql:/docker-entrypoint-initdb.d/bid.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: bid
