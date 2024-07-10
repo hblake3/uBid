@@ -1,21 +1,24 @@
 <?php
+// Connect to database
 require_once 'db_connection.php';
 
-$query = "SELECT * FROM auction_item";
+// Query
+$query = "SELECT * FROM user_profile";
 $result = $conn->query($query);
 
+// Display report
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "Item ID: " . $row["itemID"] . "<br>";
-        echo "Title: " . $row["title"] . "<br>";
-        echo "Description: " . $row["description"] . "<br>";
-        echo "Start Time: " . $row["startTime"] . "<br>";
-        echo "End Time: " . $row["endTime"] . "<br>";
-        echo "Starting Price: " . $row["startingPrice"] . "<br>";
-        echo "Highest Bid: " . $row["highestBid"] . "<br>";
-        echo "Seller Profile: " . $row["sellerProfile"] . "<br>";
-        echo "Buyer Profile: " . $row["buyerProfile"] . "<br>";
-        echo "Category ID: " . $row["categoryID"] . "<br><br>";
+        echo "Profile ID: " . $row["profileID"] . "<br>";
+        echo "Username: " . $row["username"] . "<br>";
+        echo "Address: " . $row["address"] . "<br>";
+        echo "Password: " . $row["password"] . "<br>";
+        echo "First Name: " . $row["firstName"] . "<br>";
+        echo "Last Name: " . $row["lastName"] . "<br>";
+        echo "Email: " . $row["email"] . "<br>";
+        echo "Phone Number: " . $row["phoneNumber"] . "<br>";
+        echo "Credit Card: " . $row["creditCard"] . "<br>";
+        echo "Admin: " . $row["isAdmin"] . "<br><br>";
     }
 } else {
     echo "No results found.";

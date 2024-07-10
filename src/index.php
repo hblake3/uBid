@@ -53,7 +53,7 @@ if (isset($_SESSION["loggedin"])) {
             Listing</a>
         </div>
         <div class="d-grid pb-2 pt-2 gap-2 d-sm-flex justify-content-sm-center">
-          <!-- Links to profile creation and login -->
+          <!-- Link to create profile-->
           <a href="createprofile.php" class="btn btn-primary btn-lg px-4">Create Account</a>
         </div>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">

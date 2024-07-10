@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $folder = "./images/";
                             $destination = $folder . $newFilename;
 
-                            // Now let's move the uploaded image into the folder: images
+                            // Move image into folder
                             if (move_uploaded_file($tempname, $destination)) {
                                 echo "<h3>Image uploaded successfully!</h3>";
                             } else {
@@ -177,9 +177,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 placeholder="Enter Credit Card" />
                         </div>
                         <div class="form-group">
+                            <!-- Prompt user for profile picture -->
+                            <label for="ProfilePicture" class="form-label">Profile Picture</label>
                             <input class="form-control" type="file" name="uploadfile" value="" />
                         </div>
                         <div class="mb-3">
+                            <!-- Set user as admin -->
                             <input type="checkbox" id="isAdmin" name="isAdmin" value="1">
                             <label for="isAdmin">Administrator</label>
                         </div>

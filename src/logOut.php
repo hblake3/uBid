@@ -1,5 +1,5 @@
 <?php
-// Connect to database and profile page
+// Connect to database
 require_once 'db_connection.php'; {
     if (isset($_SESSION['loggedin'])) {
         session_unset(); // Unset session variables

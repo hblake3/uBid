@@ -1,12 +1,13 @@
 <?php
+// Connect to database
 require_once 'db_connection.php';
 
-
+// Post input
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["parentID"]) && isset($_POST["bidTime"])) {
         $parentID = $_POST["parentID"];
         $bidTime = $_POST["bidTime"];
-
+        // Query
         $stmt = $conn->prepare("SELECT a.title, a.description, b.amount, b.bidTime 
                                 FROM AUCTION_ITEM a 
                                 INNER JOIN BID b ON a.itemID = b.itemID 
@@ -19,12 +20,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
 
         $_SESSION['query_results'] = [];
+        // Display result
         while ($row = $result->fetch_assoc()) {
             $_SESSION['query_results'][] = $row;
         }
-
         $stmt->close();
-
         header("Location: displayResults.php");
         exit();
     } else {
@@ -34,8 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,11 +85,11 @@ $conn->close();
                 </h2>
                 <p class="mt-3 mb-3 text-center">
                 </p>
-                <!-- Form for Adding new media -->
+                <!-- Form for report -->
                 <form action="reportCategoryDate.php" method="post" enctype="multipart/form-data">
 
                     <div class="mb-3">
-                        <!-- Prompt user for item condition -->
+                        <!-- Prompt admin for category  -->
                         <label for="parentID" class="form-label">Item Category</label>
                         <select class="form-select" id="parentID" name="parentID" aria-describedby="parentID" required>
                             <option value="" disabled selected>Select item category</option>
@@ -107,13 +105,13 @@ $conn->close();
                     </div>
 
                     <div class="mb-3">
-                        <!-- Prompt user for bid time -->
+                        <!-- Prompt admin for bid time -->
                         <label for="bidTime" class="form-label">Bid Time</label>
                         <input type="date" class="form-control" id="bidTime" name="bidTime" placeholder="Enter Bid Time"
                             required />
                     </div>
 
-                    <!-- Submit button to create media and cancel to go back -->
+                    <!-- Submit and cancel button -->
                     <button type="submit" class="btn btn-primary mt-3">
                         Submit
                     </button>

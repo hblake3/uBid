@@ -1,6 +1,6 @@
 <?php
 
-// Connect to database and media and ownership pages
+// Connect to database
 require_once 'db_connection.php';
 
 // Check if logged in
@@ -12,6 +12,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !isset($_
     // Set profile id
     $profileId = $_SESSION['ProfileID'];
 }
+
+// Initialize variable
+$message = '';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,7 +30,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($stmt = $conn->prepare($sql)) {
         $stmt->bind_param("sssdsi", $title, $description, $endTime, $startingPrice, $profileId, $categoryID);
         if ($stmt->execute()) {
+            // Retrieve the item ID of the inserted item
+            $itemId = $stmt->insert_id;
+
+            // Upload file with item ID as filename
+            if (isset($_FILES['uploadfile'])) {
+                $filename = $_FILES['uploadfile']['name'];
+                $tempname = $_FILES['uploadfile']['tmp_name'];
+                $fileExt = pathinfo($filename, PATHINFO_EXTENSION);
+                $newFilename = $itemId . "." . $fileExt; // Construct new filename
+
+                $folder = "./images/auction_items/";
+                $destination = $folder . $newFilename;
+
+                // Move the uploaded image into folder
+                if (move_uploaded_file($tempname, $destination)) {
+                    $message .= "<h3>Image uploaded successfully!</h3>";
+                } else {
+                    $message .= "<h3>Failed to upload image!</h3>";
+                }
+            }
+
+            // Redirect to welcome page after successful insertion
             header("Location: welcome.php");
+            exit();
         } else {
             $message = "Error adding auction item: " . $stmt->error;
         }
@@ -35,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $message = "Error preparing database query.";
     }
+
     $conn->close();
 }
 ?>
@@ -112,17 +139,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="category" class="form-label">Category</label>
                         <select class="form-select" id="category" name="category" required>
                             <option value="" selected disabled>Select a Category</option>
-                            <optgroup label="Antiques">
-                                <option value="1">Furniture</option>
-                                <option value="2">Art</option>
-                                <option value="3">Decorative Arts</option>
-                            </optgroup>
-                            <optgroup label="Automobiles">
-                                <option value="4">Classic Cars</option>
-                                <option value="5">Motorcycles</option>
-                                <option value="6">Parts & Accessories</option>
-                            </optgroup>
+                            <option value="1">Automobiles</option>
+                            <option value="5">Antiques</option>
+                            <option value="9">Jewelry</option>
+                            <option value="13">Watches</option>
+                            <option value="16">Home & Garden</option>
+                            <option value="19">Electronics</option>
+                            <option value="21">Books</option>
+                            <option value="24">Clothing</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <!-- Prompt user for item picture -->
+                        <label for="file" class="form-label">Item Picture</label>
+                        <input class="form-control" type="file" name="uploadfile" value="" />
                     </div>
                     <div class="mb-3">
                         <!-- Prompt user for starting bid price -->

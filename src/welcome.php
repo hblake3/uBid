@@ -5,33 +5,25 @@ require_once 'db_connection.php';
 
 // Check if logged in
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || !isset($_SESSION["ProfileID"])) {
-    // If not logged in redirect to login screen
     header("Location: login.php");
     exit;
 } else {
-    // Set profile id
     $profileId = $_SESSION['ProfileID'];
 }
 
-// Initialize variables
+// Initialize variable
 $firstName = "";
 
-
-// Query to retrieve profile details
+// Query
 $query = "SELECT firstName FROM user_profile WHERE profileID = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $profileId);
 
-// Execute query
 if ($stmt->execute()) {
-    // Bind result variables
     $stmt->bind_result($firstName);
-    // Fetch values
     $stmt->fetch();
-    // Close statement
     $stmt->close();
 } else {
-    // Handle query execution error (example: log error, redirect, etc.)
     echo "Error fetching profile details.";
     exit;
 }
@@ -90,17 +82,14 @@ if ($stmt->execute()) {
 <body>
     <div id="header"></div>
     <main class="container mt-5">
-
         <h1 class="text-start pl-5 mb-3">Welcome, <?php echo ucfirst($firstName); ?>!</h1>
-
-        <!-- Page Navigation -->
         <div class="text-center">
             <div class="row">
                 <div class="col-md-4 custom-container">
                     <div class="image-container">
                         <img src="images\viewMyListings.png">
                     </div>
-                    <!-- Navigate to media page -->
+                    <!-- View my listings page -->
                     <figcaption class="figure-caption custom-caption">
                         <b><a href="viewMyListings.php">View My Listings</a></b>
                     </figcaption>
@@ -109,7 +98,7 @@ if ($stmt->execute()) {
                     <div class="image-container">
                         <img src="images\createListing.png">
                     </div>
-                    <!-- Navigate to collections page -->
+                    <!-- Create listings page -->
                     <figcaption class="figure-caption custom-caption">
                         <b><a href="createListing.php">Create a Listing</a></b>
                     </figcaption>

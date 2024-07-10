@@ -1,21 +1,17 @@
 <?php
+// Connect to database
 require_once 'db_connection.php';
 
-$query = "SELECT * FROM user_profile";
+// Query
+$query = "SELECT * FROM category";
 $result = $conn->query($query);
 
+// Display report
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "Profile ID: " . $row["profileID"] . "<br>";
-        echo "Username: " . $row["username"] . "<br>";
-        echo "Address: " . $row["address"] . "<br>";
-        echo "Password: " . $row["password"] . "<br>";
-        echo "First Name: " . $row["firstName"] . "<br>";
-        echo "Last Name: " . $row["lastName"] . "<br>";
-        echo "Email: " . $row["email"] . "<br>";
-        echo "Phone Number: " . $row["phoneNumber"] . "<br>";
-        echo "Credit Card: " . $row["creditCard"] . "<br>";
-        echo "Admin: " . $row["isAdmin"] . "<br><br>";
+        echo "Category ID: " . $row["categoryID"] . "<br>";
+        echo "Name: " . $row["name"] . "<br>";
+        echo "Parent ID: " . $row["parentID"] . "<br><br>";
     }
 } else {
     echo "No results found.";

@@ -1,18 +1,6 @@
 <?php
 // Connect to dataabse
 require_once 'db_connection.php';
-
-// Check if user is logged in
-
-
-/*
-if (isset($_SESSION["loggedin"])) {
-  // Redirect to welcome page
-  header("Location: welcome.php");
-  exit();
-} */
-
-
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +9,7 @@ if (isset($_SESSION["loggedin"])) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Media Collection</title>
+    <title>Report Table</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -40,15 +28,38 @@ if (isset($_SESSION["loggedin"])) {
             $("#footer").load("footer.html");
         });
     </script>
+    <style>
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .image-container img {
+            width: auto;
+            height: 100%;
+        }
+
+        .custom-container {
+            padding: 2vh;
+        }
+
+        .custom-caption {
+            padding-top: 3vh;
+            text-align: center;
+        }
+    </style>
+</head>
 </head>
 
 <body>
     <div id="header"></div>
     <main>
         <div class="px-4 py-5 my-5 text-center">
-            <img class="d-block mx-auto mb-4" src="images/CD.png" alt="" width="200" height="200" />
+            <img class="d-block mx-auto mb-4" src="images/uBid_Logo2.png" alt="" />
             <h1 class="display-5 fw-bold text-body-emphasis">
-                <span class="blue">U </span><span class="orange">Bid</span>
             </h1>
             <div class="col-lg-6 mx-auto">
                 <p class="lead mb-4">
@@ -56,12 +67,14 @@ if (isset($_SESSION["loggedin"])) {
                 </p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <!-- Links to profile creation and login -->
-                    <a href="reportCategoryDate.php" class="btn btn-primary btn-lg px-4">Create
-                        Report by category and date</a>
-                    <a href="reportAllItems.php" class="btn btn-primary btn-lg px-4">Create
-                        Report of all items</a>
-                    <a href="reportFullTables.php" class="btn btn-primary btn-lg px-4">Create
-                        Report of tables contents</a>
+                    <a href="reportTableProfile.php" class="btn btn-primary btn-lg px-4">Create
+                        Report for profile table</a>
+                    <a href="reportTableAuctionItem.php" class="btn btn-primary btn-lg px-4">Create
+                        Report for Auction Item table</a>
+                    <a href="reportTableCategory.php" class="btn btn-primary btn-lg px-4">Create
+                        Report for Category table</a>
+                    <a href="reportTableBid.php" class="btn btn-primary btn-lg px-4">Create
+                        Report for Bid table</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 <?php
+// Connect to database
 require_once 'db_connection.php';
 if (!isset($_SESSION['query_results'])) {
     echo "No results found.";
@@ -27,6 +28,7 @@ if (!isset($_SESSION['query_results'])) {
 <body>
     <div class="container">
         <h2 class="mt-5">Query Results</h2>
+        <!-- Display query results for report -->
         <?php foreach ($_SESSION['query_results'] as $row): ?>
             <p>
                 Title: <?= htmlspecialchars($row["title"]) ?><br>

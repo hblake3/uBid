@@ -50,11 +50,14 @@
     <div id="header"></div>
     <main class="container mt-5">
         <?php
+        // Connect to database
         require_once 'db_connection.php';
 
+        // Query
         $sql = "SELECT * FROM auction_item";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
+            // Display all items
             while ($row = $result->fetch_assoc()) {
                 echo "Title: " . $row["title"] . "<br>";
                 echo "Description: " . $row["description"] . "<br>";

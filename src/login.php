@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION["Username"] = $username;
                     $_SESSION["ProfileID"] = $row["profileID"];
                     $_SESSION["isAdmin"] = $row["isAdmin"] == 1; // Check if user is an admin
-                    $_SESSION['loginAttempts'] = 3; // Reset the login attempts
+                    $_SESSION['loginAttempts'] = 3; // Reset login attempts
 
                     // Redirect to welcome page
                     header("Location: welcome.php");
@@ -119,13 +119,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="password" class="form-control" id="password" name="password"
                         placeholder="Enter password" required />
                 </div>
-                <!-- Submit button to edit profile and cancel to go back -->
+                <!-- Submit button to login -->
                 <button type="submit" class="btn btn-primary mt-3">Log In</button>
             </form>
-
             <p class="pt-5 pb-2">Don't have an account?</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <!-- Links to profile creation and login -->
+                <!-- Link to create a profile -->
                 <a href="createProfile.php" class="btn btn-primary btn-sm">Create Account</a>
             </div>
         </div>

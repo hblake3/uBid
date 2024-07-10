@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Media Collection</title>
+    <title>View Items</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@
     <div id="header"></div>
     <main class="container mt-5">
         <?php
-        // Connect to the database and initialize session if not already done
+        // Connect to the database
         require_once 'db_connection.php';
 
         // Check if user is logged in
@@ -62,8 +62,7 @@
 
         // Check if categoryID is provided in the URL
         if (!isset($_GET["categoryID"])) {
-            // If no categoryID provided, redirect to a default page or handle accordingly
-            header("Location: index.php"); // Redirect to homepage or another appropriate page
+            header("Location: index.php");
             exit;
         }
 
@@ -79,7 +78,6 @@
 
                 // Check if there are items found
                 if ($result->num_rows > 0) {
-                    // Display items
                     ?>
                     <!DOCTYPE html>
                     <html lang="en">
@@ -88,16 +86,27 @@
                         <meta charset="UTF-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Items in Category</title>
-                        <!-- Include any necessary CSS or JS -->
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
                     </head>
 
                     <body>
-                        <h1>Items in Category</h1>
-                        <ul>
-                            <?php while ($row = $result->fetch_assoc()) { ?>
-                                <li><?php echo $row['title']; ?> - <?php echo $row['description']; ?></li>
-                            <?php } ?>
-                        </ul>
+                        <div class="container mt-5">
+                            <h1>Items in Category</h1>
+                            <ul class="list-group">
+                                <!-- Display items -->
+                                <label for="category" class="form-label">Category</label>
+                                <?php while ($row = $result->fetch_assoc()) { ?>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Title:</strong> <?php echo $row['title']; ?><br>
+                                            <strong>Description:</strong> <?php echo $row['description']; ?>
+                                        </div>
+                                        <a href="itemDetails.php?itemID=<?php echo $row['itemID']; ?>" class="btn btn-primary">View
+                                            Details</a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
                     </body>
 
                     </html>
@@ -118,24 +127,8 @@
         $conn->close();
         ?>
 
-
-        <div class="text-center mt-4">
-            <!-- Button to add media to collection -->
-            <a href="addmediatocollection.php?collectionId=<?php echo $collectionId; ?>" class="btn btn-primary">Add
-                Media to Collection</a>
-            <!-- Button to remove media from collection -->
-            <a href="removemediafromcollection.php?collectionId=<?php echo $collectionId; ?>"
-                class="btn btn-warning">Remove
-                from Collection</a>
-            <div class="text-center mt-4">
-                <!-- Button to delete collection -->
-                <form action="deletecollection.php" method="POST"
-                    onsubmit="return confirm('Are you sure you want to delete this collection?');">
-                    <!-- Pass collection id -->
-                    <input type="hidden" name="collectionId" value="<?php echo $collectionId; ?>">
-                    <button type="submit" name="deleteCollection" class="btn btn-danger">Delete Collection</button>
-                </form>
-            </div>
+        </form>
+        </div>
         </div>
     </main>
     <div id="footer" style="padding-top: 6vh;"></div>
