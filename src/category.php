@@ -53,13 +53,6 @@
         // Connect to the database
         require_once 'db_connection.php';
 
-        // Check if user is logged in
-        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-            // If not logged in, redirect to login screen
-            header("Location: login.php");
-            exit;
-        }
-
         // Check if categoryID is provided in the URL
         if (!isset($_GET["categoryID"])) {
             header("Location: index.php");

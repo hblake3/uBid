@@ -129,14 +129,6 @@ if ($stmt->execute()) {
                     <div class="fieldheader">
                         <?php echo htmlspecialchars($username); ?>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <!-- Link to edit profile -->
-                        <a href="editprofile.php" class="btn btn-primary btn-lg px-4 me-2">Edit Account</a>
-                        <!-- Link to change password -->
-                        <a href="changepassword.php" class="btn btn-primary btn-lg px-4 me-2">Change Password</a>
-                        <!-- Link to delete account -->
-                        <a href="deleteaccount.php" class="btn btn-primary btn-lg px-4">Delete Account</a>
-                    </div>
                 </div>
             </div>
         </div>

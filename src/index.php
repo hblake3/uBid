@@ -47,11 +47,7 @@ if (isset($_SESSION["loggedin"])) {
       <img class="d-block mx-auto mb-4" src="images/uBid_Logo2.png" alt="" width="700px" height="300px" />
       <div class="col-lg-6 mx-auto">
         <p class="display-5 pb-5"> Bid, Win, Repeat: Your Deals Await!</p>
-        <div class="d-grid pb-5 gap-2 d-sm-flex justify-content-sm-center">
-          <!-- Link to create a listing -->
-          <a href="createListing.php" class="btn btn-primary btn-lg btn-block px-5" style="font-size: 24px;">Create A
-            Listing</a>
-        </div>
+
         <div class="d-grid pb-2 pt-2 gap-2 d-sm-flex justify-content-sm-center">
           <!-- Link to create profile-->
           <a href="createprofile.php" class="btn btn-primary btn-lg px-4">Create Account</a>

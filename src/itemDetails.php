@@ -3,15 +3,11 @@
 require_once 'db_connection.php';
 
 // Check if logged in
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    // If not logged in, redirect to login screen
-    header("Location: login.php");
-    exit;
-}
+$loggedIn = isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true;
 
 // Get itemID
 $itemID = $_GET["itemID"];
-$profileID = $_SESSION["ProfileID"];
+$profileID = $loggedIn ? $_SESSION["ProfileID"] : null;
 
 // Initialize variables
 $title = "";
@@ -75,7 +71,7 @@ $auctionEndDateTime = new DateTime($endTime);
 $auctionEnded = $currentDateTime >= $auctionEndDateTime;
 
 // Process bid submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($loggedIn && $_SERVER["REQUEST_METHOD"] == "POST") {
     $bidAmount = $_POST["bidAmount"];
 
     // Validate bid amount
@@ -89,7 +85,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($updateStmt->execute()) {
                     $highestBid = $bidAmount;
-                    echo "Your bid is placed successfully.";
+
+                    // Insert into bid table
+                    $currentDateTime = (new DateTime())->format('Y-m-d H:i:s');
+                    $bidQuery = "INSERT INTO bid (amount, bidTime, profileID, itemID) VALUES (?, ?, ?, ?)";
+                    $bidStmt = $conn->prepare($bidQuery);
+                    $bidStmt->bind_param("dsii", $bidAmount, $currentDateTime, $profileID, $itemID);
+
+                    if ($bidStmt->execute()) {
+                        echo "Your bid is placed successfully.";
+                    } else {
+                        echo "Error recording your bid.";
+                    }
+
+                    $bidStmt->close();
                 } else {
                     echo "Error placing your bid.";
                 }
@@ -107,7 +116,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($updateStmt->execute()) {
                     $highestBid = $bidAmount;
-                    echo "Your bid is placed successfully.";
+
+                    // Insert into bid table
+                    $currentDateTime = (new DateTime())->format('Y-m-d H:i:s');
+                    $bidQuery = "INSERT INTO bid (amount, bidTime, profileID, itemID) VALUES (?, ?, ?, ?)";
+                    $bidStmt = $conn->prepare($bidQuery);
+                    $bidStmt->bind_param("dsii", $bidAmount, $currentDateTime, $profileID, $itemID);
+
+                    if ($bidStmt->execute()) {
+                        echo "Your bid is placed successfully.";
+                    } else {
+                        echo "Error recording your bid.";
+                    }
+
+                    $bidStmt->close();
                 } else {
                     echo "Error placing your bid.";
                 }
@@ -121,7 +143,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Auction has ended. You cannot place a bid.";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -233,14 +254,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <?php echo htmlspecialchars($sellerUsername); ?>
                     </div>
                     <!-- If auction is not over and item does not belong to you -->
-                    <?php if (!$auctionEnded && $profileID != $sellerProfile): ?>
+                    <?php if ($loggedIn && !$auctionEnded && $profileID != $sellerProfile): ?>
                         <form method="post">
                             <div class="mb-3">
                                 <label for="bidAmount" class="form-label">Enter your bid</label>
-                                <input type="number" class="form-control" id="bidAmount" name="bidAmount" required>
+                                <input type="number" class="form-control" id="bidAmount" name="bidAmount" step="0.01"
+                                    required>
                             </div>
                             <button type="submit" class="btn btn-primary btn-lg px-4 me-2">Place Bid</button>
                         </form>
+                    <?php elseif (!$loggedIn): ?>
+                        <div class="text-center mt-4">
+                            <a href="login.php" class="btn btn-primary btn-lg px-4 me-2">Login to Place Bid</a>
+                        </div>
                     <?php endif; ?>
 
                     <div class="d-flex justify-content-between mt-4">
