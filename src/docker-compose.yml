@@ -2,7 +2,9 @@ version: '3'
 
 services:
   php:
-    image: icpms54/bid:v1.0
+    build:
+      context: .
+      dockerfile: Dockerfile_php
     ports:
       - "80:80"
     volumes:
@@ -16,12 +18,13 @@ services:
       MYSQL_DATABASE: ubid
 
   mysql:
-    image: icpms54/mysql:v1.0
+    build:
+      context: .
+      dockerfile: Dockerfile_mysql
     ports:
       - "3306:3306"
     volumes:
-      - ./bid.sql:/docker-entrypoint-initdb.d/bid.sql
+      - ./Docker/ubid.sql:/docker-entrypoint-initdb.d/ubid.sql
     environment:
-      MYSQL_ROOT_PASSWORD: ''
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_DATABASE: bid
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ubid

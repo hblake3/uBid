@@ -48,23 +48,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $fileExt = pathinfo($filename, PATHINFO_EXTENSION);
                             $newFilename = $profileId . "." . $fileExt; // Construct new filename
 
-                            $folder = "./images/";
+                            $folder = "./images/profile_picture/";
                             $destination = $folder . $newFilename;
 
                             // Move image into folder
                             if (move_uploaded_file($tempname, $destination)) {
-                                echo "<h3>Image uploaded successfully!</h3>";
+                                // Redirect to login page after successful upload and database insertion
+                                header("Location: login.php");
+                                exit;
                             } else {
-                                echo "<h3>Failed to upload image!</h3>";
+                                echo "Error uploading file.";
                             }
                         }
 
+                        // Only proceed to output "Profile created successfully" and redirect after all potential output
                         echo "Profile created successfully.";
-                        // Redirect to login page
-                        header("Location: login.php");
-                        exit;
                     } else {
-                        echo "Error: " . $stmt_insert->error;
+                        echo "Error inserting user data: " . $stmt_insert->error;
                     }
                     $stmt_insert->close();
                 } else {
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $stmt->close();
         } else {
-            echo "Error executing database query.";
+            echo "Error preparing statement: " . $conn->error;
         }
     }
 
@@ -189,6 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <!-- Submit button to create profile and cancel to go back -->
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                         <a href="index.php" class="btn btn-secondary mt-3">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>
@@ -198,6 +199,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 </body>
-
 
 </html>

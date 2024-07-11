@@ -1,0 +1,14 @@
+# Use the official PHP image with Apache
+FROM php:7.4-apache
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy all files from your local directory to the container's working directory
+COPY . /var/www/html
+
+# Install mysqli extension
+RUN docker-php-ext-install mysqli
+
+# Start Apache
+CMD ["apache2-foreground"]

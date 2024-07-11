@@ -1,10 +1,15 @@
+<?php
+// Connect to database
+require_once 'db_connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>View Media Collection</title>
+    <title>Report All Items</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,8 +55,6 @@
     <div id="header"></div>
     <main class="container mt-5">
         <?php
-        // Connect to database
-        require_once 'db_connection.php';
 
         // Query
         $sql = "SELECT * FROM auction_item";

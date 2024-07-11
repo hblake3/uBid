@@ -1,5 +1,4 @@
 <?php
-
 // Connect to database
 require_once 'db_connection.php';
 

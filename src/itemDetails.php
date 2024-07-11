@@ -209,7 +209,7 @@ if ($loggedIn && $_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="mb-3">
                     <div class="image-container">
                         <img class="d-block mx-auto mb-4 profile-image"
-                            src="images/auction_items/<?php echo $itemID; ?>.jpg" alt="Profile Image" width="150"
+                            src="images/auction_items/<?php echo $itemID; ?>.jpg" alt="Item Image" width="150"
                             height="150" />
                     </div>
                     <!-- Display item details -->

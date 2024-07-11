@@ -4,31 +4,40 @@ require_once 'db_connection.php';
 
 // Post input
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST["parentID"]) && isset($_POST["bidTime"])) {
-        $parentID = $_POST["parentID"];
-        $bidTime = $_POST["bidTime"];
-        // Query
-        $stmt = $conn->prepare("SELECT a.title, a.description, b.amount, b.bidTime 
-                                FROM AUCTION_ITEM a 
-                                INNER JOIN BID b ON a.itemID = b.itemID 
-                                INNER JOIN CATEGORY c ON a.categoryID = c.categoryID 
-                                WHERE c.parentID = ? AND b.bidTime = ? 
-                                ORDER BY b.bidTime");
-        $stmt->bind_param("is", $parentID, $bidTime);
+    if (isset($_POST["categoryID"]) && isset($_POST["endTime"])) {
+        $categoryID = $_POST["categoryID"];
+        $endTime = $_POST["endTime"];
 
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = $conn->prepare("SELECT * 
+                                FROM auction_item 
+                                WHERE categoryID = ? AND DATE(endTime) = ?");
 
-        $_SESSION['query_results'] = [];
-        // Display result
-        while ($row = $result->fetch_assoc()) {
-            $_SESSION['query_results'][] = $row;
+        if ($stmt === false) {
+            echo "Error preparing statement: " . $conn->error;
+            exit();
         }
-        $stmt->close();
-        header("Location: displayResults.php");
-        exit();
+
+        $stmt->bind_param("is", $categoryID, $endTime);
+
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+
+            $_SESSION['query_results'] = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $_SESSION['query_results'][] = $row;
+            }
+
+            $stmt->close();
+
+            header("Location: displayResults.php");
+            exit();
+        } else {
+            echo "Error executing statement: " . $stmt->error;
+            exit();
+        }
     } else {
-        echo "Please provide both parent ID and bid time.";
+        echo "Please provide both category ID and end time.";
     }
 }
 
@@ -41,7 +50,7 @@ $conn->close();
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Media Collection</title>
+    <title>Report by Category and End Date</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -78,20 +87,16 @@ $conn->close();
     <main>
         <div class="create-profile-container">
             <div class="px-4 py-5 my-5">
-                <img class="d-block mx-auto mb-4 text-center" src="images\placeholder.jpg" alt="" width="72"
-                    height="57" />
                 <h2 class="display-5 fw-bold text-body-emphasis text-center">
                     Create <span class="blue">New </span><span class="orange">Report</span>
                 </h2>
                 <p class="mt-3 mb-3 text-center">
                 </p>
                 <!-- Form for report -->
-                <form action="reportCategoryDate.php" method="post" enctype="multipart/form-data">
-
+                <form action="reportCategoryDate.php" method="post">
                     <div class="mb-3">
-                        <!-- Prompt admin for category  -->
-                        <label for="parentID" class="form-label">Item Category</label>
-                        <select class="form-select" id="parentID" name="parentID" aria-describedby="parentID" required>
+                        <label for="categoryID" class="form-label">Item Category</label>
+                        <select class="form-select" id="categoryID" name="categoryID" required>
                             <option value="" disabled selected>Select item category</option>
                             <option value="1">Automobile</option>
                             <option value="5">Antiques</option>
@@ -105,17 +110,15 @@ $conn->close();
                     </div>
 
                     <div class="mb-3">
-                        <!-- Prompt admin for bid time -->
-                        <label for="bidTime" class="form-label">Bid Time</label>
-                        <input type="date" class="form-control" id="bidTime" name="bidTime" placeholder="Enter Bid Time"
+                        <label for="endTime" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="endTime" name="endTime" placeholder="Enter End Time"
                             required />
                     </div>
 
-                    <!-- Submit and cancel button -->
-                    <button type="submit" class="btn btn-primary mt-3">
-                        Submit
-                    </button>
-                    <a href="index.php" class="btn btn-secondary mt-3">Cancel</a>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        <a href="index.php" class="btn btn-secondary mt-3 ms-2">Cancel</a>
+                    </div>
                 </form>
             </div>
         </div>

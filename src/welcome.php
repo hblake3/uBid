@@ -1,5 +1,5 @@
 <?php
-// Connect to database and profile page
+// Connect to database
 require_once 'db_connection.php';
 
 
@@ -35,7 +35,7 @@ if ($stmt->execute()) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to My Media Collection</title>
+    <title>Welcome to Ubid</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,3 +1,16 @@
+<?php
+// Connect to the database
+require_once 'db_connection.php';
+
+// Check if user is logged in
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
+$profileID = $_SESSION["ProfileID"];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,16 +63,6 @@
     <div id="header"></div>
     <main class="container mt-5">
         <?php
-        // Connect to the database
-        require_once 'db_connection.php';
-
-        // Check if user is logged in
-        if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-            header("Location: login.php");
-            exit;
-        }
-
-        $profileID = $_SESSION["ProfileID"];
 
         // Query
         $sql = "SELECT * FROM auction_item WHERE sellerProfile = ?";
