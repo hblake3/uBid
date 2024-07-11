@@ -9,4 +9,4 @@ ENV MYSQL_DATABASE=ubid
 EXPOSE 3306
 
 # Copy SQL script to initialize database
-COPY Docker/ubid.sql /docker-entrypoint-initdb.d/ubid.sql
+COPY ubid.sql /docker-entrypoint-initdb.d/ubid.sql
