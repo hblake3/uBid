@@ -3,7 +3,7 @@
 # UBID Project
 
 ## View the Demo and Design Discussion:
-- [**https://www.youtube.com/watch?v=-ZaHCMiuxE0&feature=youtu.be**](https://youtu.be/-ZaHCMiuxE0?t=945)
+- https://youtu.be/-ZaHCMiuxE0?t=941
 
 ## Team Members
 - Hunter Blake
