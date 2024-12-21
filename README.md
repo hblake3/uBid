@@ -2,6 +2,9 @@
 
 # UBID Project
 
+## View the Demo:
+- https://www.youtube.com/watch?v=-ZaHCMiuxE0&feature=youtu.be
+
 ## Team Members
 - Hunter Blake
 - Mekonnen Kindo
